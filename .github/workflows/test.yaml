@@ -1,0 +1,19 @@
+name: Test Workflow
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Run a simple command
+        run: |
+          echo "Hello from GitHub Actions!"
+          date
+          pwd
+          ls -la
