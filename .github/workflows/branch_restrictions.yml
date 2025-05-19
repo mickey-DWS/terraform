@@ -1,0 +1,24 @@
+name: Branch Restrictions
+
+on:
+  pull_request:
+    branches:
+      - prd
+
+jobs:
+  check_base_branch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Allow only hotfix/* or stg to merge into prd
+        run: |
+          SOURCE_BRANCH="${{ github.event.pull_request.head.ref }}"
+
+          # hotfix/* または stg は許可
+          if [[ "$SOURCE_BRANCH" =~ ^hotfix\/.+$ || "$SOURCE_BRANCH" == "stg" ]]; then
+            echo "Allowed: hotfix/* or stg branch detected ($SOURCE_BRANCH)"
+            exit 0
+          fi
+
+          # その他すべて拒否
+          echo "Error: Only hotfix/* or stg branches are allowed to merge into prd. '$SOURCE_BRANCH' is not allowed."
+          exit 1
