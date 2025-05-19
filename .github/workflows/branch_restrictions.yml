@@ -13,12 +13,12 @@ jobs:
         run: |
           SOURCE_BRANCH="${{ github.event.pull_request.head.ref }}"
 
-          # hotfix/* は許可
+          # Allow hotfix/* branches
           if [[ "$SOURCE_BRANCH" =~ ^hotfix\/.+$ ]]; then
             echo "Allowed: hotfix branch detected ($SOURCE_BRANCH)"
             exit 0
           fi
 
-          # その他すべて拒否
+          # Reject all others
           echo "Error: Only hotfix/* branches are allowed to merge into prd. '$SOURCE_BRANCH' is not allowed."
           exit 1
