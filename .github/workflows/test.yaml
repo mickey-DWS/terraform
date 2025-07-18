@@ -1,4 +1,4 @@
-name: Stg Deploy
+name: Stg Deploys
 
 on:
   push:
